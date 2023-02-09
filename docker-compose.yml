@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:stable
+    depends_on:
+      - app
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+
+  app:
+    build: ./
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+    command: ["uwsgi", "uwsgi.ini"]
